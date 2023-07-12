@@ -66,11 +66,15 @@ function game(){
         const compChoice=getComputerChoice();
         console.log(playRound(compChoice))
     }
-    if(player_score==5){
+    if(player_score>computer_score){
         console.log('You win!')
     }
-    if(computer_score==5){
-        console.log('You Lose!')
+    else if(player_score<computer_score){
+        console.log('you lose!(get rekt lol)')
+
+    }
+    else {
+        console.log('You and the computer are equal')
     }
 }
 game()
