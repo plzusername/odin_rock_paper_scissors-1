@@ -62,6 +62,7 @@ function playRound(compChoice){
     return roundResult
 }
 function game(){
+
     for(let i=0;i<5;i++){
         const compChoice=getComputerChoice();
         console.log(playRound(compChoice))
