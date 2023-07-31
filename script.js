@@ -5,8 +5,10 @@ let resultText=document.querySelector('.winner-text')
 let UserChoice;
 let computer_score = 0;
 let player_score = 0;
-let buttons = document.querySelectorAll('button');
+let buttons = document.querySelectorAll('.button');
 let choices=0
+const reset_c=document.querySelector('.reset-c')
+let resetGame;
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
     if (button.textContent == 'Rock') {
@@ -30,6 +32,20 @@ buttons.forEach((button) => {
     // Start the game after the user makes a choice
     if(choices===5){
         game()
+        resetGame=document.createElement('button')
+        resetGame.classList.add('reset-button')
+        reset_c.appendChild(resetGame)
+        resetGame.textContent='reset game?'
+        resetGame.addEventListener('click',()=>{
+            winnerText.textContent=''
+            resultText.textContent=''
+            play_score.textContent=`Player score: `
+            comp_score.textContent=`Computer score: `
+            player_score=0;
+            computer_score=0;
+            choices=0
+            reset_c.removeChild(resetGame)
+        })
     }
   });
 });
