@@ -1,6 +1,32 @@
 let UserChoice;
-let computer_score=0;
-let player_score=0;
+let computer_score = 0;
+let player_score = 0;
+let buttons = document.querySelectorAll('button');
+let choices=0
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (button.textContent == 'Rock') {
+      UserChoice = 'rock';
+      console.log('rock')
+    } else if (button.textContent == 'Paper') {
+      UserChoice = 'paper';
+      console.log('paper')
+
+    } else if (button.textContent == 'Scissors') {
+      UserChoice = 'scissors';
+      console.log('scissors')
+
+    } else {
+      UserChoice = 'paper';
+    }
+    choices++
+    // Start the game after the user makes a choice
+    if(choices===5){
+        game();
+    }
+  });
+});
+// Rest of the code remains unchanged...
 function getComputerChoice(){
     let random=Math.floor(Math.random()*3)+1;
     let choice;
@@ -19,7 +45,6 @@ function getComputerChoice(){
     return choice;
 }
 function playRound(compChoice){
-    let UserChoice=prompt('Rock, paper, or scissors?')
     let roundResult;
     if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='rock'){
         roundResult='Rock vs Rock? that is a tie!'
@@ -78,4 +103,3 @@ function game(){
         console.log('You and the computer are equal')
     }
 }
-game()
