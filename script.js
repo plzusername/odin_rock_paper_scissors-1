@@ -6,49 +6,8 @@ let UserChoice;
 let computer_score = 0;
 let player_score = 0;
 let buttons = document.querySelectorAll('.button');
-let choices=0
 const reset_c=document.querySelector('.reset-c')
 let resetGame;
-buttons.forEach((button) => {
-  button.addEventListener('click', () => {
-    if (button.textContent == 'Rock') {
-      UserChoice = 'rock';
-      playRound(getComputerChoice())
-
-    } else if (button.textContent == 'Paper') {
-      UserChoice = 'paper';
-      playRound(getComputerChoice())
-
-
-    } else if (button.textContent == 'Scissors') {
-      UserChoice = 'scissors';
-      playRound(getComputerChoice())
-
-
-    } else {
-      UserChoice = 'paper';
-    }
-    choices++
-    // Start the game after the user makes a choice
-    if(choices===5){
-        game()
-        resetGame=document.createElement('button')
-        resetGame.classList.add('reset-button')
-        reset_c.appendChild(resetGame)
-        resetGame.textContent='reset game?'
-        resetGame.addEventListener('click',()=>{
-            winnerText.textContent=''
-            resultText.textContent=''
-            play_score.textContent=`Player score: `
-            comp_score.textContent=`Computer score: `
-            player_score=0;
-            computer_score=0;
-            choices=0
-            reset_c.removeChild(resetGame)
-        })
-    }
-  });
-});
 // Rest of the code remains unchanged...
 function getComputerChoice(){
     let random=Math.floor(Math.random()*3)+1;
@@ -111,19 +70,61 @@ function playRound(compChoice){
     return roundResult
 }
 function game(){
-
-//    for(let i=0;i<5;i++){
-//        const compChoice=getComputerChoice();
-//        console.log(playRound(compChoice))
-//    }
-    if(player_score>computer_score){
+    if(player_score==5){
         winnerText.textContent='You win!'
     }
-    else if(player_score<computer_score){
+    if(computer_score==5){
         winnerText.textContent='You lose!'
 
     }
-    else {
-        winnerText.textContent='You tied!'
-    }
 }
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.textContent == 'Rock') {
+        UserChoice = 'rock';
+        playRound(getComputerChoice())
+  
+      } else if (button.textContent == 'Paper') {
+        UserChoice = 'paper';
+        playRound(getComputerChoice())
+  
+  
+      } else if (button.textContent == 'Scissors') {
+        UserChoice = 'scissors';
+        playRound(getComputerChoice())
+  
+  
+      } else {
+        UserChoice = 'paper';
+      }
+      // Start the game after the user makes a choice
+      if((player_score==5)||(computer_score==5)){
+          console.log(0%5==0)
+          buttons.forEach(button =>{
+            button.disabled=true
+          })
+          game()
+          if(!document.querySelector('.reset-button')){
+          resetGame=document.createElement('button')
+          resetGame.classList.add('reset-button')
+          reset_c.appendChild(resetGame)
+          resetGame.textContent='reset game?'
+          
+            resetGame.addEventListener('click',()=>{
+                winnerText.textContent=''
+                resultText.textContent=''
+                play_score.textContent=`Player score: `
+                comp_score.textContent=`Computer score: `
+                player_score=0;
+                computer_score=0;
+                choices=0
+                reset_c.removeChild(resetGame)
+                buttons.forEach(button =>{
+                    button.disabled=false
+                })
+            })}
+          
+      }
+  
+    });
+  });
