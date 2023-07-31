@@ -1,3 +1,7 @@
+let play_score=document.querySelector('.C-score')
+let comp_score=document.querySelector('.P-score')
+let winnerText=document.querySelector('.result-text')
+let resultText=document.querySelector('.winner-text')
 let UserChoice;
 let computer_score = 0;
 let player_score = 0;
@@ -7,14 +11,17 @@ buttons.forEach((button) => {
   button.addEventListener('click', () => {
     if (button.textContent == 'Rock') {
       UserChoice = 'rock';
-      console.log('rock')
+      playRound(getComputerChoice())
+
     } else if (button.textContent == 'Paper') {
       UserChoice = 'paper';
-      console.log('paper')
+      playRound(getComputerChoice())
+
 
     } else if (button.textContent == 'Scissors') {
       UserChoice = 'scissors';
-      console.log('scissors')
+      playRound(getComputerChoice())
+
 
     } else {
       UserChoice = 'paper';
@@ -22,7 +29,7 @@ buttons.forEach((button) => {
     choices++
     // Start the game after the user makes a choice
     if(choices===5){
-        game();
+        game()
     }
   });
 });
@@ -47,59 +54,60 @@ function getComputerChoice(){
 function playRound(compChoice){
     let roundResult;
     if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='rock'){
-        roundResult='Rock vs Rock? that is a tie!'
+       resultText.textContent ='Rock vs Rock? that is a tie!'
     }
     else if(compChoice.toLowerCase()=='paper'&&UserChoice.toLowerCase()=='paper'){
-        roundResult='Paper vs Paper? that is a tie!'
+        resultText.textContent='Paper vs Paper? that is a tie!'
     }
     else if(compChoice.toLowerCase()=='scissors'&&UserChoice.toLowerCase()=='scissors'){
-        roundResult='scissors vs scissors? that is a tie!'
+        resultText.textContent='scissors vs scissors? that is a tie!'
     }
     else if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='paper'){
-        roundResult='The user wins! paper covers rock!'
+        resultText.textContent='The user wins! paper covers rock!'
         player_score+=1;
     }
     else if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='scissors'){
-        roundResult='The computer wins! rock breaks scissors!'
+        resultText.textContent='The computer wins! rock breaks scissors!'
         computer_score+=1;
     }
     else if(compChoice.toLowerCase()=='paper'&&UserChoice.toLowerCase()=='rock'){
-        roundResult='The computer wins! paper covers  rock!'
+        resultText.textContent='The computer wins! paper covers  rock!'
         computer_score+=1;
 
     }
     else if(compChoice.toLowerCase()=='paper'&&UserChoice.toLowerCase()=='scissors'){
-        roundResult='The user wins! scissors cuts paper!'
+        resultText.textContent='The user wins! scissors cuts paper!'
         player_score+=1;
 
     }
     else if(compChoice.toLowerCase()=='scissors'&&UserChoice.toLowerCase()=='paper'){
-        roundResult='The computer wins! scissors cuts paper!'
+        resultText.textContent='The computer wins! scissors cuts paper!'
         computer_score+=1;
 
     }
     else if(compChoice.toLowerCase()=='scissors'&&UserChoice.toLowerCase()=='rock'){
-        roundResult='The user wins! rock breaks scissors!'
+        resultText.textContent='The user wins! rock breaks scissors!'
         player_score+=1;
 
     }
-
+    play_score.textContent=`Player score: ${player_score}`
+    comp_score.textContent=`Computer score: ${computer_score}`
     return roundResult
 }
 function game(){
 
-    for(let i=0;i<5;i++){
-        const compChoice=getComputerChoice();
-        console.log(playRound(compChoice))
-    }
+//    for(let i=0;i<5;i++){
+//        const compChoice=getComputerChoice();
+//        console.log(playRound(compChoice))
+//    }
     if(player_score>computer_score){
-        console.log('You win!')
+        winnerText.textContent='You win!'
     }
     else if(player_score<computer_score){
-        console.log('you lose!(get rekt lol)')
+        winnerText.textContent='You lose!'
 
     }
     else {
-        console.log('You and the computer are equal')
+        winnerText.textContent='You tied!'
     }
 }
