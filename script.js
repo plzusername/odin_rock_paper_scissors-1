@@ -2,6 +2,8 @@ let play_score=document.querySelector('.C-score')
 let comp_score=document.querySelector('.P-score')
 let winnerText=document.querySelector('.result-text')
 let resultText=document.querySelector('.winner-text')
+let playerChoiceDisplay=document.querySelector('.play-choice');
+let computerChoiceDisplay=document.querySelector('.comp-choice');
 let UserChoice;
 let computer_score = 0;
 let player_score = 0;
