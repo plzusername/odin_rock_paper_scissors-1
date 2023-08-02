@@ -1,17 +1,19 @@
 let play_score=document.querySelector('.P-score')
 let comp_score=document.querySelector('.C-score')
 let winnerText=document.querySelector('.result-text')
+let gameResult=document.querySelector('.game-result')
 let resultText=document.querySelector('.winner-text')
 let playerChoiceDisplay=document.querySelector('.play-choice');
 let computerChoiceDisplay=document.querySelector('.comp-choice');
 let UserChoice;
 let computer_score = 0;
 let player_score = 0;
+let main=document.querySelector('.main')
 let buttons = document.querySelectorAll('.button');
 const reset_c=document.querySelector('.reset-c')
 let roundResult=document.querySelector('h2')
 let roundExp=document.querySelector('h3')
-
+let modalC=document.querySelector('.modal-c')
 let resetGame;
 // Rest of the code remains unchanged...
 function getComputerChoice(){
@@ -96,64 +98,59 @@ function playRound(compChoice){
     comp_score.textContent=`Computer: ${computer_score}`
     return roundResult
 }
-// function modal(){
-//     if(player_score==5){
-//         winnerText.textContent='You win!'
-//     }
-//     if(computer_score==5){
-//         winnerText.textContent='You lose!'
+ function modal(){
+     if(player_score==5){
+         gameResult.textContent='You win!'
+     }
+     if(computer_score==5){
+         gameResult.textContent='You lose!'
 
-//     }
-// }
+     }
+ }
+ // The rest of your JavaScript code remains unchanged...
+
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-      if (button.textContent == '✊') {
+      if (button.textContent === '✊') {
         UserChoice = 'rock';
-        playRound(getComputerChoice())
-  
-      } else if (button.textContent == '✋') {
+        playRound(getComputerChoice());
+      } else if (button.textContent === '✋') {
         UserChoice = 'paper';
-        playRound(getComputerChoice())
-  
-  
-      } else if (button.textContent == '✌') {
+        playRound(getComputerChoice());
+      } else if (button.textContent === '✌') {
         UserChoice = 'scissors';
-        playRound(getComputerChoice())
-  
-  
+        playRound(getComputerChoice());
       } else {
         UserChoice = 'paper';
       }
-      // Start the game after the user makes a choice
-      if((player_score==5)||(computer_score==5)){
-          console.log(0%5==0)
-          buttons.forEach(button =>{
-            button.disabled=true
-          })
-          //game()
-          if(!document.querySelector('.reset-button')){
-          resetGame=document.createElement('button')
-          resetGame.classList.add('reset-button')
-          reset_c.appendChild(resetGame)
-          resetGame.textContent='reset game?'
-          
-            resetGame.addEventListener('click',()=>{
-                roundResult.textContent='Choose your weapon'
-                roundExp.textContent='First to score 5 points wins'
-                playerChoiceDisplay.textContent='❔'
-                computerChoiceDisplay.textContent='❔'
-                play_score.textContent=`Player score: 0`
-                comp_score.textContent=`Computer score: 0`
-                player_score=0;
-                computer_score=0;
-                choices=0
-                reset_c.removeChild(resetGame)
-                buttons.forEach(button =>{
-                    button.disabled=false
-                })
-            })}
-          
-      }
+      
+      if (player_score === 5 || computer_score === 5) {
+        main.style.opacity='0.8'
+        main.style.backgroundColor='black'
+        modalC.style.display = 'block'; // Show the modal
+        buttons.forEach(button => {
+          button.disabled = true;
+        });
+        modal(); // Call the modal function to update the modal content
   
+        // Reset game logic when the modal button is clicked
+        const modalButton = document.querySelector('.modal-button');
+        modalButton.addEventListener('click', () => {
+          modalC.style.display = 'none'; // Hide the modal
+          main.style.opacity = '1'; // Hide the modal
+          main.style.backgroundColor='#222831'
+          roundResult.textContent = 'Choose your weapon';
+          roundExp.textContent = 'First to score 5 points wins';
+          playerChoiceDisplay.textContent = '❔';
+          computerChoiceDisplay.textContent = '❔';
+          play_score.textContent = 'Player score: 0';
+          comp_score.textContent = 'Computer score: 0';
+          player_score = 0;
+          computer_score = 0;
+          buttons.forEach(button => {
+            button.disabled = false;
+          });
+        });
+      }
     });
-  });
+  });  
