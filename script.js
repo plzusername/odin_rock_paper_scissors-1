@@ -1,5 +1,5 @@
-let play_score=document.querySelector('.C-score')
-let comp_score=document.querySelector('.P-score')
+let play_score=document.querySelector('.P-score')
+let comp_score=document.querySelector('.C-score')
 let winnerText=document.querySelector('.result-text')
 let resultText=document.querySelector('.winner-text')
 let playerChoiceDisplay=document.querySelector('.play-choice');
@@ -9,6 +9,9 @@ let computer_score = 0;
 let player_score = 0;
 let buttons = document.querySelectorAll('.button');
 const reset_c=document.querySelector('.reset-c')
+let roundResult=document.querySelector('h2')
+let roundExp=document.querySelector('h3')
+
 let resetGame;
 // Rest of the code remains unchanged...
 function getComputerChoice(){
@@ -29,69 +32,91 @@ function getComputerChoice(){
     return choice;
 }
 function playRound(compChoice){
-    let roundResult;
     if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='rock'){
-       resultText.textContent ='Rock vs Rock? that is a tie!'
+       roundResult.textContent ='Its a tie!'
+       roundExp.textContent ='Rock ties with Rock'
+       computerChoiceDisplay.textContent='✊';
+       playerChoiceDisplay.textContent='✊';
     }
     else if(compChoice.toLowerCase()=='paper'&&UserChoice.toLowerCase()=='paper'){
-        resultText.textContent='Paper vs Paper? that is a tie!'
+        roundResult.textContent ='Its a tie!'
+        roundExp.textContent ='Paper ties with paper!'
+        computerChoiceDisplay.textContent='✋';
+        playerChoiceDisplay.textContent='✋';
     }
     else if(compChoice.toLowerCase()=='scissors'&&UserChoice.toLowerCase()=='scissors'){
-        resultText.textContent='scissors vs scissors? that is a tie!'
+        roundResult.textContent ='Its a tie!'
+        roundExp.textContent ='Scissors ties with Scissors'
+        computerChoiceDisplay.textContent='✌';
+        playerChoiceDisplay.textContent='✌';
     }
     else if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='paper'){
-        resultText.textContent='The user wins! paper covers rock!'
+        roundResult.textContent ='You win!'
+        roundExp.textContent ='Paper wraps rock!'
         player_score+=1;
+        computerChoiceDisplay.textContent='✊';
+        playerChoiceDisplay.textContent='✋';
     }
     else if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='scissors'){
-        resultText.textContent='The computer wins! rock breaks scissors!'
+        roundResult.textContent ='You lose!'
+        roundExp.textContent ='Rock crushes scissors!'
         computer_score+=1;
+        computerChoiceDisplay.textContent='✊';
+        playerChoiceDisplay.textContent='✌';
     }
     else if(compChoice.toLowerCase()=='paper'&&UserChoice.toLowerCase()=='rock'){
-        resultText.textContent='The computer wins! paper covers  rock!'
+        roundResult.textContent ='You lose'
+        roundExp.textContent ='Paper covers rock!'
         computer_score+=1;
-
+        computerChoiceDisplay.textContent='✋';
+        playerChoiceDisplay.textContent='✊';
     }
     else if(compChoice.toLowerCase()=='paper'&&UserChoice.toLowerCase()=='scissors'){
-        resultText.textContent='The user wins! scissors cuts paper!'
+        roundResult.textContent ='You win!'
+        roundExp.textContent ='Scissors cuts paper!'
         player_score+=1;
-
+        computerChoiceDisplay.textContent='✋';
+        playerChoiceDisplay.textContent='✌';
     }
     else if(compChoice.toLowerCase()=='scissors'&&UserChoice.toLowerCase()=='paper'){
-        resultText.textContent='The computer wins! scissors cuts paper!'
+        roundResult.textContent ='You lose'
+        roundExp.textContent ='Scissors cuts paper!'
         computer_score+=1;
-
+        computerChoiceDisplay.textContent='✌';
+        playerChoiceDisplay.textContent='✋';
     }
     else if(compChoice.toLowerCase()=='scissors'&&UserChoice.toLowerCase()=='rock'){
-        resultText.textContent='The user wins! rock breaks scissors!'
+        roundResult.textContent ='You win!'
+        roundExp.textContent ='Rock crushes scissors!'
         player_score+=1;
-
+        computerChoiceDisplay.textContent='✌';
+        playerChoiceDisplay.textContent='✊';
     }
-    play_score.textContent=`Player score: ${player_score}`
-    comp_score.textContent=`Computer score: ${computer_score}`
+    play_score.textContent=`Player: ${player_score}`
+    comp_score.textContent=`Computer: ${computer_score}`
     return roundResult
 }
-function game(){
-    if(player_score==5){
-        winnerText.textContent='You win!'
-    }
-    if(computer_score==5){
-        winnerText.textContent='You lose!'
+// function modal(){
+//     if(player_score==5){
+//         winnerText.textContent='You win!'
+//     }
+//     if(computer_score==5){
+//         winnerText.textContent='You lose!'
 
-    }
-}
+//     }
+// }
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-      if (button.textContent == 'Rock') {
+      if (button.textContent == '✊') {
         UserChoice = 'rock';
         playRound(getComputerChoice())
   
-      } else if (button.textContent == 'Paper') {
+      } else if (button.textContent == '✋') {
         UserChoice = 'paper';
         playRound(getComputerChoice())
   
   
-      } else if (button.textContent == 'Scissors') {
+      } else if (button.textContent == '✌') {
         UserChoice = 'scissors';
         playRound(getComputerChoice())
   
@@ -105,7 +130,7 @@ buttons.forEach((button) => {
           buttons.forEach(button =>{
             button.disabled=true
           })
-          game()
+          //game()
           if(!document.querySelector('.reset-button')){
           resetGame=document.createElement('button')
           resetGame.classList.add('reset-button')
@@ -113,10 +138,12 @@ buttons.forEach((button) => {
           resetGame.textContent='reset game?'
           
             resetGame.addEventListener('click',()=>{
-                winnerText.textContent=''
-                resultText.textContent=''
-                play_score.textContent=`Player score: `
-                comp_score.textContent=`Computer score: `
+                roundResult.textContent='Choose your weapon'
+                roundExp.textContent='First to score 5 points wins'
+                playerChoiceDisplay.textContent='❔'
+                computerChoiceDisplay.textContent='❔'
+                play_score.textContent=`Player score: 0`
+                comp_score.textContent=`Computer score: 0`
                 player_score=0;
                 computer_score=0;
                 choices=0

@@ -24,13 +24,48 @@ body{
     font-weight:bolder;
 }
 .comp-choice, .play-choice{
-    font-size: 79px;
+    font-size: 90px;
 }
 .scoreboard{
     display: flex;
-    justify-content: center;
-    gap:153px;
+    align-items: center;
+    justify-content: space-around;
+    /* gap:120px; */
     margin-top: 48px;
+    margin :0 auto;
+    max-width: 400px;
+    padding:12px;
+
+}
+.C-score, .P-score{
+    font-weight: bolder;
+    font-size: 22px;
+}
+.button-c{
+    display: flex;
+    justify-content: center;
+}
+
+.button-c button{
+    align-self: center;
+    width:160px;
+    height: 160px;
+    /* padding:50px; */
+    cursor: pointer;
+    margin:15px;
+    text-align: center;
+    font-size: 80px;
+    color: white;
+    background-color: #393e46;
+    border: none;
+    border-radius: 12px;
+}
+.button-c button:hover{
+    background-color: #4a4f57;
+}
+.scoreboard{
+    margin-top: 32px;
+
 
 }
 .main-text h3{
