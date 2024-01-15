@@ -7,6 +7,7 @@ let playerChoiceDisplay=document.querySelector('.play-choice');
 let computerChoiceDisplay=document.querySelector('.comp-choice');
 let UserChoice;
 let computer_score = 0;
+let overlay=document.querySelector('.overlay');
 let player_score = 0;
 let main=document.querySelector('.main')
 let buttons = document.querySelectorAll('.button');
@@ -14,7 +15,9 @@ const reset_c=document.querySelector('.reset-c')
 let roundResult=document.querySelector('h2')
 let roundExp=document.querySelector('h3')
 let modalC=document.querySelector('.modal-c')
+let draws=document.querySelector('.draw-text')
 let resetGame;
+let draws_count=0;
 // Rest of the code remains unchanged...
 function getComputerChoice(){
     let random=Math.floor(Math.random()*3)+1;
@@ -39,18 +42,21 @@ function playRound(compChoice){
        roundExp.textContent ='Rock ties with Rock'
        computerChoiceDisplay.textContent='✊';
        playerChoiceDisplay.textContent='✊';
+       draws.textContent=`Draws: ${++draws_count}`
     }
     else if(compChoice.toLowerCase()=='paper'&&UserChoice.toLowerCase()=='paper'){
         roundResult.textContent ='Its a tie!'
         roundExp.textContent ='Paper ties with paper!'
         computerChoiceDisplay.textContent='✋';
         playerChoiceDisplay.textContent='✋';
+        draws.textContent=`Draws: ${++draws_count}`
     }
     else if(compChoice.toLowerCase()=='scissors'&&UserChoice.toLowerCase()=='scissors'){
         roundResult.textContent ='Its a tie!'
         roundExp.textContent ='Scissors ties with Scissors'
         computerChoiceDisplay.textContent='✌';
         playerChoiceDisplay.textContent='✌';
+        draws.textContent=`Draws: ${++draws_count}`
     }
     else if(compChoice.toLowerCase()=='rock'&&UserChoice.toLowerCase()=='paper'){
         roundResult.textContent ='You win!'
@@ -111,23 +117,11 @@ function playRound(compChoice){
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-      if (button.textContent === '✊') {
-        UserChoice = 'rock';
-        playRound(getComputerChoice());
-      } else if (button.textContent === '✋') {
-        UserChoice = 'paper';
-        playRound(getComputerChoice());
-      } else if (button.textContent === '✌') {
-        UserChoice = 'scissors';
-        playRound(getComputerChoice());
-      } else {
-        UserChoice = 'paper';
-      }
-      
+      UserChoice=button.id
+      playRound(getComputerChoice());      
       if (player_score === 5 || computer_score === 5) {
-        main.style.opacity='0.8'
-        main.style.backgroundColor='black'
-        modalC.style.display = 'block'; // Show the modal
+        overlay.classList.add('active')
+        modalC.classList.add ('active'); // Show the modal
         buttons.forEach(button => {
           button.disabled = true;
         });
@@ -136,7 +130,7 @@ buttons.forEach((button) => {
         // Reset game logic when the modal button is clicked
         const modalButton = document.querySelector('.modal-button');
         modalButton.addEventListener('click', () => {
-          modalC.style.display = 'none'; // Hide the modal
+          modalC.classList.remove('active') // Hide the modal
           main.style.opacity = '1'; // Hide the modal
           main.style.backgroundColor='#222831'
           roundResult.textContent = 'Choose your weapon';
@@ -146,6 +140,9 @@ buttons.forEach((button) => {
           play_score.textContent = 'Player score: 0';
           comp_score.textContent = 'Computer score: 0';
           player_score = 0;
+          draws_count=0
+          draws.textContent=`Draws: ${draws_count}`
+          overlay.classList.remove('active')
           computer_score = 0;
           buttons.forEach(button => {
             button.disabled = false;

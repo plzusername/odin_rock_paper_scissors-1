@@ -20,9 +20,6 @@ body{
     display: flex;
     flex-direction: column;
 }
-.main{
-     flex: 1;   
-}
 .main-text h2{
     font-size: 30px;
     margin-top:50px;
@@ -30,6 +27,9 @@ body{
 }
 .comp-choice, .play-choice{
     font-size: 90px;
+}
+.main{
+    scale: 1;
 }
 .modal-c button{
     background-color: #393e46;
@@ -50,22 +50,57 @@ body{
 .modal-c button:active{
     background-color: #5b5f68;
 }
-.modal-c{
+.overlay{
     display: none;
-    background-color: #222831;
-    transform: translate(-50%,-50%);
-    padding:40px;
-    font-size: 45px;
-    font-weight: bolder;
-    color: white;
-    border-radius: 12px;
-    width: 250px;
-    z-index:1;
-    position: absolute;
-    left:50%;
-    top:50%;
-    align-self: center;
-    transition: 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.6;
+}
+.overlay.active{
+    display: block;
+}
+.modal-c.active{
+     display:block; 
+     transform:translate(-50%,-50%) scale(1); 
+
+}
+
+a{
+    /* display: flex;
+    flex-direction: column
+    align-items: center; */
+    margin-top: 5px;
+    transition: 200ms linear;
+}
+a:hover{
+    rotate: 360deg;
+    scale: 1.2;
+}
+footer{
+    font-size: 20px;
+    vertical-align: center;
+    margin-bottom: 10px;
+
+}
+
+.modal-c{
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: var(--primary-dark);
+    text-align: center;
+    font-size: 30px;
+    user-select: none;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 150ms ease-in-out;
 }
 .scoreboard{
     display: flex;
@@ -91,7 +126,6 @@ body{
     align-self: center;
     width:160px;
     height: 160px;
-    /* padding:50px; */
     cursor: pointer;
     margin:15px;
     text-align: center;
@@ -116,13 +150,14 @@ body{
     font-size: 1.2rem;
     margin-top:-13px;
 }
-.title{
+.title h1{
+    font-size: 32px;
     font-family:'Press Start 2P', cursive;
     color: #fac650;
-    text-align: center;
-    font-size: 15px;
-    line-height: 1.6;
-    padding:32px;
+
+}
+.title{
+    padding:40px 0;
     background-color:#111720;
     display: flex;
     justify-content: center;
@@ -144,4 +179,8 @@ h1{
     margin: 0;
     width: auto;
     height: auto;
+}
+.draw-count p{
+    font-size: 40px;
+    margin:0;
 }

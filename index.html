@@ -37,7 +37,7 @@
     <body>
         <div class="main">
             <div class="title">
-                <h1>Rock paper scissors</h1>
+                <h1>ROCK PAPER SCISSORS</h1>
             </div>
             <div class="main-text">
                  <h2>Choose your weapon</h2> 
@@ -53,10 +53,13 @@
                     <p class="C-score">Computer: 0</p>
                 </div>
             </div>
+            <div class="draw-count">
+              <p class="draw-text">Draws: 0</p>
+            </div>
              <div class="button-c">
-                <button class="button rock"><span>✊</span></button>
-                <button class="button paper"><span>✋</span></button>
-                <button class="button scissors"><span>✌</span></button>
+                <button id="rock" class="button rock"><span>✊</span></button>
+                <button id="paper" class="button paper"><span>✋</span></button>
+                <button id="scissors" class="button scissors"><span>✌</span></button>
             </div>
         </div>
         <footer class="footer">
@@ -75,6 +78,7 @@
                 <p class="game-result">You Win!</p>
                 <button class="modal-button">Play again!</button>
             </div>
+            <div class="overlay"></div>
         <script src="script.js"></script>
     </body>
 </html>
